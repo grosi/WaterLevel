@@ -3,19 +3,19 @@ package ch.bfh.ti.waterlevel;
 public class MotionSensor {
 
 	/* LIS302DL infos */
-	private static final char   LIS302DL_CONFIG    = 0x20;          /* LIS302DL register pointer */
-	private static final char   LIS302DL_12_BIT    = 0x67;          /* Sensor config register bits */
-	private static final char   LIS302DL_I2C_ADDR  = 0x1C;          /* i2c slave address */
+	private static final byte   LIS302DL_CONFIG    = 0x20;          /* LIS302DL register pointer */
+	private static final byte   LIS302DL_12_BIT    = 0x67;          /* Sensor config register bits */
+	private static final byte   LIS302DL_I2C_ADDR  = 0x1C;          /* i2c slave address */
 	private static final String LIS302DL_FILE_NAME = "/dev/i2c-3";  /* i2c device file */
 	
 	/* LIS302DL registers */
-	private static final char   LIS302DL_OUT_X     = 0x29;          /* Register for the x acceleration */
-	private static final char   LIS302DL_OUT_Y     = 0x2B;          /* Register for the y acceleration */
-	private static final char   LIS302DL_OUT_Z     = 0x2D;          /* Register for the z acceleration */
+	private static final byte   LIS302DL_OUT_X     = 0x29;          /* Register for the x acceleration */
+	private static final byte   LIS302DL_OUT_Y     = 0x2B;          /* Register for the y acceleration */
+	private static final byte   LIS302DL_OUT_Z     = 0x2D;          /* Register for the z acceleration */
 	
 	/* I2C variables */
 	private I2C i2c;
-	private int[] i2cBuffer = new int[16];
+	private int[] i2cBuffer = new int[2];
 	private int fileHandle;
 	
 	/* Acceleration variable */
