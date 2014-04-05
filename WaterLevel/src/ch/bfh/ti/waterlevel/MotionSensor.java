@@ -60,21 +60,33 @@ public class MotionSensor {
 			i2cBuffer[0] = LIS302DL_OUT_X;
 			i2c.write(fileHandle, i2cBuffer, 1);
 			i2c.read(fileHandle, i2cBuffer, 1);
-			/* Store the received value in the variable */
+			/* Convert the 2’s complement number */
+			if(i2cBuffer[0] > 0x7F){
+				i2cBuffer[0] -= 0xFF;
+			}
+			/* Store the value in the variable */
 			acceleration.x = i2cBuffer[0];
 			
 			/* Transmit the register and then read the y acceleration */
 			i2cBuffer[0] = LIS302DL_OUT_Y;
 			i2c.write(fileHandle, i2cBuffer, 1);
 			i2c.read(fileHandle, i2cBuffer, 1);
-			/* Store the received value in the variable */
+			/* Convert the 2’s complement number */
+			if(i2cBuffer[0] > 0x7F){
+				i2cBuffer[0] -= 0xFF;
+			}
+			/* Store the value in the variable */
 			acceleration.y = i2cBuffer[0];
 			
 			/* Transmit the register and then read the z acceleration */
 			i2cBuffer[0] = LIS302DL_OUT_Z;
 			i2c.write(fileHandle, i2cBuffer, 1);
 			i2c.read(fileHandle, i2cBuffer, 1);
-			/* Store the received value in the variable */
+			/* Convert the 2’s complement number */
+			if(i2cBuffer[0] > 0x7F){
+				i2cBuffer[0] -= 0xFF;
+			}
+			/* Store the value in the variable */
 			acceleration.z = i2cBuffer[0];
 		}
 		
