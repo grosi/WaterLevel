@@ -24,12 +24,15 @@ public class MainActivity extends Activity {
 //        }
         
 
+        /* TODO: Just for debugging */
         TextView textView1 = (TextView) findViewById(R.id.textView1);
-        
         MotionSensor sens = new MotionSensor();
-        
         Vector3D acc = sens.getAcceleration();
-        textView1.setText("(" + acc.x + ", " + acc.y + ", " + acc.z + ")");
+        textView1.setText("Acc: (" + acc.x + ", " + acc.y + ", " + acc.z + ")");
+        Vector3D rot = sens.getRotEuler();
+        textView1.append("\nEuler: (" + rot.x + ", " + rot.y + ", " + rot.z + ")");
+        rot = sens.getRotRPY();
+        textView1.append("\nR-P-Y: (" + rot.x + ", " + rot.y + ", " + rot.z + ")");
     }
 
 

@@ -18,17 +18,18 @@ public class MotionSensor {
 	private int[] i2cBuffer = new int[2];
 	private int fileHandle;
 	
-	/* Acceleration variable */
+	/* Acceleration variables */
 	private Vector3D acceleration;
-	/* Rotation variable */
-	//private Vector3D rotEuler;
+	private double norm;
+	/* Rotation variable, used for both, euler or roll-pitch-yaw */
+	private Vector3D rotation;
 	
 	/* Constructor */
 	public MotionSensor() {
 		
 		/* Create the attribute objects */
 		acceleration = new Vector3D();
-		//rotEuler = new Vector3D();
+		rotation = new Vector3D();
 		
 		/* Create the i2c device */
 		i2c = new I2C();
@@ -52,6 +53,7 @@ public class MotionSensor {
 		}
 	}
 	
+	/* Get the acceleration values by I2C */
 	public Vector3D getAcceleration() {
 		
 		if (i2c != null) {
@@ -93,6 +95,41 @@ public class MotionSensor {
 		return acceleration;
 	}
 	
+	/* Get the acceleration values by I2C and calculate the euler rotation values in rad */
+	public Vector3D getRotEuler() {
+		
+		/* Update the acceleration data first */
+		getAcceleration();
+		/* Calculate the absolute value */
+		norm = acceleration.getNorm();
+		
+		/* Calculate alpha */
+		rotation.x = Math.asin(acceleration.x / norm);
+		/* Calculate beta */
+		rotation.y = Math.asin(acceleration.y / norm);
+		/* Calculate gamma */
+		rotation.z = Math.acos(acceleration.z / norm);
+		
+		return rotation;
+	}
+	
+	/* Get the acceleration values by I2C and calculate the roll-pitch-yaw rotation values in rad */
+	public Vector3D getRotRPY() {
+		
+		/* Update the acceleration data first */
+		getAcceleration();
+		
+		/* Calculate roll */
+		rotation.x = Math.atan(acceleration.x / Math.sqrt(acceleration.y * acceleration.y + acceleration.z * acceleration.z));
+		/* Calculate pitch */
+		rotation.y = Math.atan(acceleration.y / Math.sqrt(acceleration.x * acceleration.x + acceleration.z * acceleration.z));
+		/* Set yaw to 0 */
+		rotation.z = 0;
+		
+		return rotation;
+	}
+	
+	/* Close the I2C connection */
 	public void close() {
 		
 		if (i2c != null) {
