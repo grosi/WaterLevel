@@ -42,7 +42,7 @@ public class MotionSensor {
 			if (fileHandle != 0) {
 				
 				/* Set the slave address */
-				i2c.SetSlaveAddres(fileHandle, LIS302DL_I2C_ADDR);
+				i2c.SetSlaveAddress(fileHandle, LIS302DL_I2C_ADDR);
 				
 				/* Setup i2c buffer for the configuration register */
 				i2cBuffer[0] = LIS302DL_CONFIG;

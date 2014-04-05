@@ -17,10 +17,10 @@ JNIEXPORT jint JNICALL Java_ch_bfh_ti_waterlevel_I2C_open
 
 /*
  * Class:     ch_bfh_ti_waterlevel_I2C
- * Method:    SetSlaveAddres
+ * Method:    SetSlaveAddress
  * Signature: (II)I
  */
-JNIEXPORT jint JNICALL Java_ch_bfh_ti_waterlevel_I2C_SetSlaveAddres
+JNIEXPORT jint JNICALL Java_ch_bfh_ti_waterlevel_I2C_SetSlaveAddress
   (JNIEnv *, jobject, jint, jint);
 
 /*

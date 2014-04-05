@@ -79,7 +79,7 @@ JNIEXPORT jint JNICALL Java_ch_bfh_ti_waterlevel_I2C_open(JNIEnv *env, jobject o
 /* Set the i2c slave address																										*/
 /************************************************************************************************************************************/
 
-JNIEXPORT jint JNICALL Java_ch_bfh_ti_waterlevel_I2C_SetSlaveAddres(JNIEnv *env, jobject obj, jint file, jint slaveAddr)
+JNIEXPORT jint JNICALL Java_ch_bfh_ti_waterlevel_I2C_SetSlaveAddress(JNIEnv *env, jobject obj, jint file, jint slaveAddr)
   {
    #ifndef EMULATOR
 

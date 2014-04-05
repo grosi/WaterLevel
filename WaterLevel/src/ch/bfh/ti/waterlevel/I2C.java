@@ -35,7 +35,7 @@ public class I2C
      *         I2C slave address of the device
      * @return return 0 if OK else return <0 on fail
      */
-    public native int SetSlaveAddres(int fileHande, int i2c_adr);
+    public native int SetSlaveAddress(int fileHande, int i2c_adr);
     
     /**
      * @param  fileHande
