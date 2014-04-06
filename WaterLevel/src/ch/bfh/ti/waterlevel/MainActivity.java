@@ -13,6 +13,7 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 	
 	private MotionSensor sens;
+	private LEDsButtons ledbtn;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,8 @@ public class MainActivity extends Activity {
         textView1.append("\nEuler: (" + rot.x + ", " + rot.y + ", " + rot.z + ")");
         rot = sens.getRotRPY();
         textView1.append("\nR-P-Y: (" + rot.x + ", " + rot.y + ", " + rot.z + ")");
+        ledbtn = new LEDsButtons();
+        ledbtn.setLEDsAll();
     }
 
 
@@ -79,6 +82,8 @@ public class MainActivity extends Activity {
 
 		/* Close the I2C connection */
 		sens.close();
+		/* Reset LEDs and unexport LEDs and buttons */
+		ledbtn.unexport();
 
 		finish();
 		super.onStop();
