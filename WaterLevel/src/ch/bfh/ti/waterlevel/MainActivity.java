@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 	
+	private MotionSensor sens;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +28,7 @@ public class MainActivity extends Activity {
 
         /* TODO: Just for debugging */
         TextView textView1 = (TextView) findViewById(R.id.textView1);
-        MotionSensor sens = new MotionSensor();
+        sens = new MotionSensor();
         Vector3D acc = sens.getAcceleration();
         textView1.setText("Acc: (" + acc.x + ", " + acc.y + ", " + acc.z + ")");
         Vector3D rot = sens.getRotEuler();
@@ -71,4 +73,14 @@ public class MainActivity extends Activity {
             return rootView;
         }
     }
+
+	@Override
+	protected void onStop() {
+
+		/* Close the I2C connection */
+		sens.close();
+
+		finish();
+		super.onStop();
+	}
 }
