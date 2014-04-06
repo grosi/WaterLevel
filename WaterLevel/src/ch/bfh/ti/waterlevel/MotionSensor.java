@@ -23,13 +23,16 @@ public class MotionSensor {
 	private double norm;
 	/* Rotation variable, used for both, euler or roll-pitch-yaw */
 	private Vector3D rotation;
+	/* Default rotation (only for roll-pitch-yaw) */
+	private Vector3D defaultRot;
 	
 	/* Constructor */
 	public MotionSensor() {
 		
-		/* Create the attribute objects */
+		/* Create the objects */
 		acceleration = new Vector3D();
 		rotation = new Vector3D();
+		defaultRot = new Vector3D();
 		
 		/* Create the i2c device */
 		i2c = new I2C();
@@ -126,7 +129,17 @@ public class MotionSensor {
 		/* Set yaw to 0 */
 		rotation.z = 0;
 		
-		return rotation;
+		return rotation.subOffset(defaultRot);
+	}
+	
+	/* Set current rotation as default rotation (only for roll-pitch-yaw rotation) */
+	public void setAsDefaultRot() {
+		
+		/* Update the rotation data first */
+		getRotEuler();
+		
+		/* Store the rotation in the variable for the default rotation */
+		defaultRot = rotation;
 	}
 	
 	/* Close the I2C connection */

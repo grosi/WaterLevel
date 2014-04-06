@@ -36,6 +36,9 @@ public class MainActivity extends Activity {
         textView1.append("\nEuler: (" + rot.x + ", " + rot.y + ", " + rot.z + ")");
         rot = sens.getRotRPY();
         textView1.append("\nR-P-Y: (" + rot.x + ", " + rot.y + ", " + rot.z + ")");
+        sens.setAsDefaultRot();
+        rot = sens.getRotRPY();
+        textView1.append("\nCalib: (" + rot.x + ", " + rot.y + ", " + rot.z + ")");
         ledbtn = new LEDsButtons();
         ledbtn.setLEDsAll();
     }
