@@ -21,8 +21,9 @@ public class MotionSensor {
 	/* Acceleration variables */
 	private Vector3D acceleration;
 	private double norm;
-	/* Rotation variable, used for both, euler or roll-pitch-yaw */
+	/* Rotation variables, used for both, euler or roll-pitch-yaw */
 	private Vector3D rotation;
+	private Vector3D rotation_calib;
 	/* Default rotation (only for roll-pitch-yaw) */
 	private Vector3D defaultRot;
 	
@@ -32,6 +33,7 @@ public class MotionSensor {
 		/* Create the objects */
 		acceleration = new Vector3D();
 		rotation = new Vector3D();
+		rotation_calib = new Vector3D();
 		defaultRot = new Vector3D();
 		
 		/* Create the i2c device */
@@ -113,7 +115,12 @@ public class MotionSensor {
 		/* Calculate gamma */
 		rotation.z = Math.acos(acceleration.z / norm);
 		
-		return rotation;
+		/* Subtract offset */
+		rotation_calib.x = rotation.x - defaultRot.x;
+		rotation_calib.y = rotation.y - defaultRot.y;
+		rotation_calib.z = rotation.z - defaultRot.z;
+		
+		return rotation_calib;
 	}
 	
 	/* Get the acceleration values by I2C and calculate the roll-pitch-yaw rotation values in rad */
@@ -129,7 +136,12 @@ public class MotionSensor {
 		/* Set yaw to 0 */
 		rotation.z = 0;
 		
-		return rotation.subOffset(defaultRot);
+		/* Subtract offset */
+		rotation_calib.x = rotation.x - defaultRot.x;
+		rotation_calib.y = rotation.y - defaultRot.y;
+		rotation_calib.z = rotation.z - defaultRot.z;
+		
+		return rotation_calib;
 	}
 	
 	/* Set current rotation as default rotation (only for roll-pitch-yaw rotation) */
@@ -139,7 +151,9 @@ public class MotionSensor {
 		getRotEuler();
 		
 		/* Store the rotation in the variable for the default rotation */
-		defaultRot = rotation;
+		defaultRot.x = rotation.x;
+		defaultRot.y = rotation.y;
+		defaultRot.z = rotation.z;
 	}
 	
 	/* Close the I2C connection */

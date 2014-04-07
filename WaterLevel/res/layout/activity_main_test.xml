@@ -1,0 +1,37 @@
+<!-- <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" -->
+<!--     xmlns:tools="http://schemas.android.com/tools" -->
+<!--     android:id="@+id/container" -->
+<!--     android:layout_width="match_parent" -->
+<!--     android:layout_height="match_parent" -->
+<!--     tools:context="ch.bfh.ti.waterlevel.MainActivity" -->
+<!--     tools:ignore="MergeRootFrame" > -->
+	
+    <merge xmlns:android="http://schemas.android.com/apk/res/android"
+    	xmlns:tools="http://schemas.android.com/tools"
+    	android:id="@+id/container"
+   	 	android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	tools:context="ch.bfh.ti.waterlevel.MainActivity">
+    	
+	    <ImageView
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:scaleType="fitXY"
+	        android:contentDescription="@string/img_background"
+	        android:src="@drawable/background_complete" />
+	    
+	    <ch.bfh.ti.waterlevel.BubbleView
+	        android:id="@+id/bubble_view_2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_horizontal|bottom"
+	        android:layout_marginBottom="100dp"
+	        android:layout_marginTop="285dp"
+	        android:layout_marginLeft="115dp"
+	        android:layout_marginRight="109dp"
+	        android:focusable="true"/>
+    
+    </merge>
+    
+
+<!-- </FrameLayout> -->

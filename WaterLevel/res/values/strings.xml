@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- main view strings -->
     <string name="app_name">WaterLevel</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    
+    <!-- images -->
+    <string name="img_background">background</string>
+    <string name="img_title">title</string>
+    <string name="img_bar">bar</string>
 
 </resources>

@@ -26,26 +26,4 @@ public class Vector3D {
 	public double getNorm() {
 		return Math.sqrt(x*x + y*y + z*z);
 	}
-	
-	/* Add an offset and return value */
-	public Vector3D addOffset(Vector3D offset) {
-		
-		/* Add values together */
-		offset.x += x;
-		offset.y += y;
-		offset.z += z;
-		
-		return offset;
-	}
-	
-	/* Subtract an offset and return value */
-	public Vector3D subOffset(Vector3D offset) {
-		
-		/* Subtract offset from value */
-		offset.x = x - offset.x;
-		offset.y = y - offset.y;
-		offset.z = z - offset.z;
-		
-		return offset;
-	}
 }

@@ -3,22 +3,22 @@ package ch.bfh.ti.waterlevel;
 public class LEDsButtons {
 
 	/* BFH cape LED and button defines */
-	final String LED_L1    =  "61";
-	final String LED_L2    =  "44";
-	final String LED_L3    =  "68";
-	final String LED_L4    =  "67";
-	final String BUTTON_T1 =  "49";
-	final String BUTTON_T2 = "112";
-	final String BUTTON_T3 =  "51";
-	final String BUTTON_T4 =   "7";
+	private final String LED_L1    =  "61";
+	private final String LED_L2    =  "44";
+	private final String LED_L3    =  "68";
+	private final String LED_L4    =  "67";
+	private final String BUTTON_T1 =  "49";
+	private final String BUTTON_T2 = "112";
+	private final String BUTTON_T3 =  "51";
+	private final String BUTTON_T4 =   "7";
 	
 	/* Define some useful constants */
-	final char   ON        =   '0';
-	final char   OFF       =   '1';
-	final String PRESSED   =   "0";
+	private final char   ON        =   '0';
+	private final char   OFF       =   '1';
+	private final String PRESSED   =   "0";
 	
 	/* Create new gpio object */
-	final SysfsFileGPIO gpio = new SysfsFileGPIO();
+	private final SysfsFileGPIO gpio = new SysfsFileGPIO();
 	
 	/* Constructor */
 	public LEDsButtons() {
