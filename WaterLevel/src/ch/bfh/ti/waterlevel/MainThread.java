@@ -46,7 +46,6 @@ public final class MainThread implements Runnable {
 	private LEDsButtons myLEDsButtons;
 	private MotionSensor mySensor;
 	
-	//TODO
 	private Vector3D myRotation;
 	private boolean last_btn_value = false;
 	
@@ -91,12 +90,14 @@ public final class MainThread implements Runnable {
 					angle_converted = 45;
 				}
 				
-				/* Handle LEDs */
-				if(angle_converted < 10 && angle_converted > -10 ) {
-					myLEDsButtons.setLED((byte)1);
-				}
-				else {
-					myLEDsButtons.resetLED((byte)1);
+				if(myLEDsButtons != null) {
+					/* Handle LEDs */
+					if(angle_converted < 10 && angle_converted > -10 ) {
+						myLEDsButtons.setLED((byte)1);
+					}
+					else {
+						myLEDsButtons.resetLED((byte)1);
+					}
 				}
 				
 				/* Add offset and factor (both depending on graphics) */
@@ -151,24 +152,24 @@ public final class MainThread implements Runnable {
 	 * stops thread and gives the singleton free
 	 */
 	public void done() {
-		
-		boolean retry = true;
-		while (retry) {
-			try {
-				myThread.join();
-				retry = false;
-			} catch (InterruptedException e) {
-				// try again shutting down the thread
-			}
-		}
-		myHolder = null;
+
+//		/* Turn off LEDs and unexport all (incl. buttons) */
+//		myLEDsButtons.unexport();
+//		myLEDsButtons = null;
+//		
+//		boolean retry = true;
+//		while (retry) {
+//			try {
+//				myThread.join();
+//				retry = false;
+//			} catch (InterruptedException e) {
+//				// try again shutting down the thread
+//			}
+//		}
+//		myHolder = null;
 		myDone = true;
-		
-		synchronized(myLEDsButtons) {
-			/* Turn off LEDs and unexport all (incl. buttons) */
-			myLEDsButtons.unexport();
-		}
-		myHandlerThread.quit();
+
+//		myHandlerThread.quit();
 	}
 		
 
@@ -254,7 +255,8 @@ public final class MainThread implements Runnable {
 					myView.update();
 					/* render state to the screen
 					   draws the canvas on the panel */
-					myView.render(canvas);				
+					if(canvas != null)
+						myView.render(canvas);				
 					/* calculate how long did the cycle take */
 					timeDiff = System.currentTimeMillis() - beginTime;
 					/* calculate sleep time */
@@ -286,5 +288,25 @@ public final class MainThread implements Runnable {
 				}
 			}
 		}
+		
+		myHolder = null;
+		myHandlerThread.quit();
+		
+		/* Turn off LEDs and unexport all (incl. buttons) */
+		myLEDsButtons.unexport();
+		myLEDsButtons = null;
+		
+		boolean retry = true;
+		while (retry) {
+			try {
+				myThread.join();
+				retry = false;
+			} catch (InterruptedException e) {
+				// try again shutting down the thread
+			}
+		}
+		
+		
+		
 	}
 }

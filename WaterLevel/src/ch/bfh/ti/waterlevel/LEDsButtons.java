@@ -41,6 +41,11 @@ public class LEDsButtons {
 		gpio.set_direction_out(BUTTON_T2);
 		gpio.set_direction_out(BUTTON_T3);
 		gpio.set_direction_out(BUTTON_T4);
+		/* Turn off all LEDs */
+		gpio.write_value(LED_L1, OFF);
+		gpio.write_value(LED_L2, OFF);
+		gpio.write_value(LED_L3, OFF);
+		gpio.write_value(LED_L4, OFF);
 	}
 
 	/* Set LEDs */
