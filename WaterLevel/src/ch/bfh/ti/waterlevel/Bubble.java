@@ -65,7 +65,8 @@ public final class Bubble {
 			
  			myLastX = (int) (KI * myEsum * TA);
 			
- 			int threshold = 10;
+ 			/* Threshold for bubble graphic change */
+ 			int threshold = 20;
  			if(myLastX < myX-threshold) {
  				myCurrentBubble = myBubble3;
  			} else if(myLastX > myX+threshold) {

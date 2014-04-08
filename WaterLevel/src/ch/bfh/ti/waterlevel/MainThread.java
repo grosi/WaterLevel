@@ -43,7 +43,7 @@ public final class MainThread implements Runnable {
 	static private SurfaceHolder myHolder = null;
 	
 	/* hardware in and outputs */
-	private LEDsButtons myLedButton;
+	private LEDsButtons myLEDsButtons;
 	private MotionSensor mySensor;
 	
 	//TODO
@@ -79,10 +79,32 @@ public final class MainThread implements Runnable {
 	private void notifyListener() {
 		if(myAcceleratorChangeListener != null) {
 			synchronized (myRotation) {
-				myAcceleratorChangeListener.onAcceleratorChange((int)(myRotation.x * 180/Math.PI));
+				
+				/* Convert to degrees and invert rotation */
+				int angle_converted = (int)(myRotation.x * -180/Math.PI);
+				
+				/* Set limits */
+				if(angle_converted < -45) {
+					angle_converted = -45;
+				}
+				if(angle_converted > 45) {
+					angle_converted = 45;
+				}
+				
+				/* Handle LEDs */
+				if(angle_converted < 10 && angle_converted > -10 ) {
+					myLEDsButtons.setLED((byte)1);
+				}
+				else {
+					myLEDsButtons.resetLED((byte)1);
+				}
+				
+				/* Add offset and factor (both depending on graphics) */
+				angle_converted = (int)((angle_converted+35)*5);
+				
+				myAcceleratorChangeListener.onAcceleratorChange(angle_converted);
 			}
 		}
-			
 	}
 	
 	
@@ -91,7 +113,7 @@ public final class MainThread implements Runnable {
 	 */
 	private MainThread() {
 		
-		myLedButton = new LEDsButtons();
+		myLEDsButtons = new LEDsButtons();
 		mySensor = new MotionSensor();
 		
 		myThread = new Thread(this, "HardwareThread");
@@ -129,10 +151,6 @@ public final class MainThread implements Runnable {
 	 * stops thread and gives the singleton free
 	 */
 	public void done() {
-		myHolder = null;
-		myDone = true;
-		
-		myHandlerThread.quit();
 		
 		boolean retry = true;
 		while (retry) {
@@ -143,6 +161,14 @@ public final class MainThread implements Runnable {
 				// try again shutting down the thread
 			}
 		}
+		myHolder = null;
+		myDone = true;
+		
+		synchronized(myLEDsButtons) {
+			/* Turn off LEDs and unexport all (incl. buttons) */
+			myLEDsButtons.unexport();
+		}
+		myHandlerThread.quit();
 	}
 		
 
@@ -155,7 +181,7 @@ public final class MainThread implements Runnable {
 		public void run() {
 			
 			/* Read button with edge detection */
-			boolean current_btn_value = myLedButton.getButton((byte) 1);
+			boolean current_btn_value = myLEDsButtons.getButton((byte) 1);
 			if(current_btn_value && !last_btn_value) {
 			
 				mySensor.setAsDefaultRot();
