@@ -18,13 +18,9 @@ public class BubbleView extends SurfaceView implements SurfaceHolder.Callback {
 	private MainThread myThread;
 	
 	private Bubble myBubble;
-	
-	private float myFactor;
 
 	public BubbleView(Context context, AttributeSet attrs) {
 		super(context,attrs);
-		
-		myFactor = getWidth()/180.0F;
 
 		myBubble = new Bubble(context);
 		
@@ -47,9 +43,9 @@ public class BubbleView extends SurfaceView implements SurfaceHolder.Callback {
 					angle_converted = 45;
 				}
 				/* Add offset and factor (both depending on graphics) */
-				angle_converted = (int)(((-1*angle)+90)*2.2);
+				angle_converted = (int)(((-1*angle)+70)*2.5);
 				
-				myBubble.setPosition(angle_converted);		
+				myBubble.setPosition(angle_converted);
 			}
 		});
 	}

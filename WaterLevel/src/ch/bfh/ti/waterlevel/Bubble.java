@@ -65,14 +65,13 @@ public final class Bubble {
 			
  			myLastX = (int) (KI * myEsum * TA);
 			
- 			if(myLastX < myX) {
+ 			int threshold = 10;
+ 			if(myLastX < myX-threshold) {
  				myCurrentBubble = myBubble3;
- 			} else if(myLastX == myX) {
- 				/* Correct image center, simple fix */
- 				myX += 20;
- 				myCurrentBubble = myBubble2;
- 			} else {
+ 			} else if(myLastX > myX+threshold) {
  				myCurrentBubble = myBubble1;
+ 			} else {
+ 				myCurrentBubble = myBubble2;
  			}
 	}
 
