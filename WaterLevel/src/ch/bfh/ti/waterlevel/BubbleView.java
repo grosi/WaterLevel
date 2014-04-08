@@ -39,28 +39,19 @@ public class BubbleView extends SurfaceView implements SurfaceHolder.Callback {
 				
 				int angle_converted = angle;
 				
+				/* Handle limits */
 				if(angle_converted < -45) {
 					angle_converted = -45;
 				}
 				if(angle_converted > 45) {
 					angle_converted = 45;
 				}
+				/* Add offset and factor (both depending on graphics) */
 				angle_converted = (int)(((-1*angle)+90)*2.2);
 				
-				myBubble.setPosition(angle_converted);
-//				//TODO
-//				if(angle % 450 > 200) {
-//					myBubble.setPosition(angle % 450);
-//				} else {
-//					myBubble.setPosition(200-(angle%450));
-//				}
-				
-				
-				
+				myBubble.setPosition(angle_converted);		
 			}
 		});
-		
-		
 	}
 	
 

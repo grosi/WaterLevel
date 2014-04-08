@@ -25,7 +25,7 @@ public final class MainThread implements Runnable {
 	private final static String TAG = MainThread.class.getSimpleName();
 	private final static int BUTTON_REFRESH_TIME = 50; /* 20Hz */
 	private final static int ACCELERATOR_REFRESH_TIME = 50; /* 50 Hz */
-	private final static int MAX_FPS = 50; /* desired FPS */	
+	private final static int MAX_FPS = 50; /* desired FPS */
 	private final static int MAX_FRAME_SKIPS = 5; /* maximum number of frames to be skipped */
 	private final static int FRAME_PERIOD = 1000 / MAX_FPS; /* the frame period */
 	
@@ -47,7 +47,7 @@ public final class MainThread implements Runnable {
 	private MotionSensor mySensor;
 	
 	//TODO
-	private Vector3D rotation;
+	private Vector3D myRotation;
 	private boolean last_btn_value = false;
 	
 	/* change listener */
@@ -78,10 +78,8 @@ public final class MainThread implements Runnable {
 	 */
 	private void notifyListener() {
 		if(myAcceleratorChangeListener != null) {
-			synchronized (rotation) {
-				int angle_1 = (int)(rotation.x * 180/Math.PI);
-				double angle = (rotation.x * 180/Math.PI);
-				myAcceleratorChangeListener.onAcceleratorChange((int)angle);
+			synchronized (myRotation) {
+				myAcceleratorChangeListener.onAcceleratorChange((int)(myRotation.x * 180/Math.PI));
 			}
 		}
 			
@@ -164,9 +162,6 @@ public final class MainThread implements Runnable {
 			}
 			last_btn_value = current_btn_value;
 			
-//			if(rotation != null)
-//				notifyListener();
-			
 			myButtonHandler.postDelayed(this, BUTTON_REFRESH_TIME);
 		}
 	};
@@ -181,7 +176,7 @@ public final class MainThread implements Runnable {
 		public void run() {
 			// TODO Auto-generated method stub
 			
-			rotation = mySensor.getRotRPY();
+			myRotation = mySensor.getRotRPY();
 			
 			notifyListener();
 			
@@ -256,7 +251,6 @@ public final class MainThread implements Runnable {
 						sleepTime += FRAME_PERIOD;	
 						framesSkipped++;
 					}
-					
 				}
 			} finally {
 				/* in case of an exception the surface is not left in 

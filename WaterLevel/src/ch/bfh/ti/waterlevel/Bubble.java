@@ -68,6 +68,8 @@ public final class Bubble {
  			if(myLastX < myX) {
  				myCurrentBubble = myBubble3;
  			} else if(myLastX == myX) {
+ 				/* Correct image center, simple fix */
+ 				myX += 20;
  				myCurrentBubble = myBubble2;
  			} else {
  				myCurrentBubble = myBubble1;
